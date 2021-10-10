@@ -2,8 +2,7 @@
 date_default_timezone_set('America/Araguaina');
 include_once("../../configuracion.php");
 $datos = data_submitted();
-//print_r($datos);
-if($datos["seg"]==true){
+if($datos["seg"]=="true"){
     include_once("../estructura/headerSeg.php");
 }else{
     include_once("../estructura/header.php");

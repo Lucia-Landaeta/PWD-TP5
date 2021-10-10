@@ -1,9 +1,14 @@
 <?php
 include_once("../../configuracion.php");
-include_once("../estructura/headerSeg.php");
+
+$datos = data_submitted();
+if($datos["seg"]=="true"){
+    include_once("../estructura/headerSeg.php");
+}else{
+    include_once("../estructura/header.php");
+}
 
 $abmUs = new AbmUsuario();
-$datos = data_submitted();
 $objUs = NULL;
 // print_r($datos);
 if (isset($datos['idUsuario'])) {

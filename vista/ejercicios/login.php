@@ -17,13 +17,13 @@ if ($objSession->activa()) {
                         <div class="form-group my-4">
                             <div class="input-group">
                                 <span class="input-group-text p-3"><i class="fas fa-user"></i></span>
-                                <input id="usNombre" class="form-control" type="text" placeholder="Nombre Usuario" name="usNombre" required>
+                                <input id="usNombre" class="form-control" type="text" placeholder="Nombre Usuario" name="usNombre" >
                             </div>
                         </div>
                         <div class="form-group mb-4">
                             <div class="input-group">
                                 <span class="input-group-text p-3"><i class="fas fa-lock"></i></span>
-                                <input id="usPass" class="form-control" type="password" placeholder="Contraseña" name="usPass" required>
+                                <input id="usPass" class="form-control" type="password" placeholder="Contraseña" name="usPass" >
                             </div>
                         </div>
                         <div class="form-group mb-4">
