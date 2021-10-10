@@ -25,7 +25,8 @@
     .sidebar .nav-link:hover {
       color: var(--bs-primary);}
     small.help-block {
-      color: #F44336 !important;}
+      color: #F44336 !important;
+      font-weight: bold;}
   </style>
 </head>
 

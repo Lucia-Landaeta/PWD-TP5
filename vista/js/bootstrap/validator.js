@@ -22,10 +22,10 @@ $('#login').bootstrapValidator({
                 notEmpty: {
                     message : 'Debe ingresar una psw'
                 },
-                // regexp: {
-                //     regexp: /^[A-Za-zñáéíóúÑÁÉÍÓÚüÜ ]+$/,
-                //     message: 'Se detectan caracteres invalidos'
-                // }
+                regexp: {
+                    regexp: /^([a-z]+[0-9]+)|([0-9]+[a-z]+)/i,
+                    message: 'La contraseña debe contener letras y números'
+                }
             }
         },
         

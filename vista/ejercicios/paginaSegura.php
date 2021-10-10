@@ -2,7 +2,7 @@
 include_once("../../configuracion.php");
 include_once("../estructura/headerSeg.php");
 
-$objR=$objSess->getRol();
+$colR = $objSess->getRol();
 
 $abmUs = new AbmUsuario();
 $colUsuarios = $abmUs->buscar(null);
@@ -19,7 +19,7 @@ $colUsuarios = $abmUs->buscar(null);
                             <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Acción</th> 
+                            <th scope="col">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,24 +27,28 @@ $colUsuarios = $abmUs->buscar(null);
                             foreach ($colUsuarios as $us) {
                                 // if ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00") {
                         ?>
-                                    <tr>
-                                        <td><?php echo $us->getIdUsuario() ?></td>
-                                        <td><?php echo $us->getUsNombre() ?></td>
-                                        <td><?php echo $us->getUsMail() ?></td>
-                                        <td>
-                                        <?php if(($objR[0]->getDescripcionRol()=="Administracion" || $objR[0]->getDescripcionRol()=="Editor")&&($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")){ ?>
-                                            <a class="btn btn-success" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us->getIdUsuario()?>&seg=true">editar</a>
-                                        <?php } ?>                                       
-                                        <?php if($objR[0]->getDescripcionRol()=="Administracion" &&($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")){?>
+                                <tr>
+                                    <td><?php echo $us->getIdUsuario() ?></td>
+                                    <td><?php echo $us->getUsNombre() ?></td>
+                                    <td><?php echo $us->getUsMail() ?></td>
+                                    <td>
+                                        <?php
+                                    foreach($colR as $objR){
+                                        if (($objR->getDescripcionRol() == "Administracion" || $objR->getDescripcionRol() == "Editor") && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
+                                            <a class="btn btn-success" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">editar</a>
+                                        <?php } ?>
+                                        <?php if ($objR->getDescripcionRol() == "Administracion" && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
                                             <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">borrar</a>
-                                       <?php } ?>
-                                        <?php  if($objR[0]->getDescripcionRol()=="Administracion" && !($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")){ ?>
-                                                <a class="btn btn-info" href="../accion/habilitarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">habilitar</a>
-                                        <?php }?>
-                                        </td>
-                                    </tr>
+                                        <?php } ?>
+                                        <?php if ($objR->getDescripcionRol() == "Administracion" && !($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
+                                            <a class="btn btn-info" href="../accion/habilitarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">habilitar</a>
+                                        <?php }
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
 
-                        <?php 
+                        <?php
                             }
                         } ?>
                     </tbody>
