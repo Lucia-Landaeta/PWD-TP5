@@ -1,0 +1,115 @@
+<?php
+class Session{
+
+    private $objUsuario;
+    private $colRoles;
+
+    /**
+     * Constructor de la clase que inicia la sesión
+     */
+    public function __construct(){
+        if(session_start()){
+            $this->objRol=null;
+            $this->colRoles=null;
+        }
+    }
+
+    /**
+     * Actualiza las variables de sesión con los valores ingresados
+     */
+    public function iniciar($usNombre,$psw){  
+        $ini=false;
+        $psw=md5($psw);
+        if($this->validar($usNombre,$psw)){
+            $_SESSION["idUsuario"]=$this->objUsuario->getIdUsuario();
+            $ini=true;
+        }   
+        return $ini;
+    }
+
+    /**
+     *  Valida si la sesión actual tiene usuario y psw válidos. Devuelve true o false.
+     */
+    public function validar($usNombre,$psw){
+        $valido=false;
+        $abmUs=new AbmUsuario();
+        $list=$abmUs->buscar(["usNombre"=>$usNombre,"usPass"=>$psw]);
+        if(count($list)>0){
+            if($list[0]->getUsDeshabilitado()==NULL || $list[0]->getUsDeshabilitado()=="0000-00-00 00:00:00"){
+                $valido=true;
+                $this->setObjUsuario($list[0]);
+            }            
+        }
+        return $valido;
+    }
+
+    /**
+     * Devuelve true o false si la sesión está activa o no.
+     */
+    public function activa(){
+        $activa=false;
+        if(isset($_SESSION["idUsuario"])){
+            $activa=true;
+        }
+        return $activa;
+    }
+
+    /**
+     * Devuelve el usuario logeado
+     */
+    public function getUsuario(){
+        $usuario=null;
+        $abmUs=new AbmUsuario();
+        $list=$abmUs->buscar(["idUsuario"=>$_SESSION["idUsuario"]]); 
+        if(count($list)>0){
+            $usuario=$list[0];
+        }
+        return $usuario;
+    }
+
+    /**
+     * Devuelve el rol del usuario logeado
+     */
+    public function getRol(){
+        $roles=array();
+        $abmUR=new AbmUsuarioRol();
+        $abmR=new AbmRol();
+        $uss=$this->getUsuario();
+        // print_r($uss);
+        $list=$abmUR->buscar(["idUsuario"=>$uss->getIdUsuario()]);
+        if(count($list)>0){
+            foreach($list as $UR){
+                $objRol=$abmR->buscar(["idRol"=>$UR->getObjRol()->getIdRol()]);
+                array_push($roles,$objRol[0]);
+            }
+        }
+        return $roles;
+    }
+
+
+    /**
+     * Cierra la sesión actual
+     */
+    public function cerrar(){
+        $close=false;
+        $this->objRol=null;
+        $this->colRoles=null;
+        if(session_destroy()){
+            $close=true;
+        }
+        return $close;
+    }
+
+    public function setObjusuario($uss){
+        $this->objUsuario=$uss;
+    }
+
+    public function setColRoles($roles){
+        $this->colRoles=$roles;
+    }
+
+        //  public function recuperarSession(){
+    //     $this->setObjUsuario($this->getUsuario());
+    //     $this->setColRoles($this->getRol());
+    //  }
+}
