@@ -11,9 +11,9 @@ if ($objSession->activa()) {
     <div class="row">
         <div class="col-md-5">
             <div class="card border rounded shadow p-3">
-                <div class="card-body text-center">
+                <div class="card-body ">
                     <form class="ms-2" id="login" name="login" method="POST" action="../accion/verificarLogin.php" data-toggle="validator" novalidate>
-                        <h4>Sesión</h4>
+                        <h4 class="tittle text-center">Sesión</h4>
                         <div class="form-group my-4">
                             <div class="input-group">
                                 <span class="input-group-text p-3"><i class="fas fa-user"></i></span>
