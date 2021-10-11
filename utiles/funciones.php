@@ -58,21 +58,3 @@ spl_autoload_register(function($class_name){
 //         }
 //     }
 // });
-
-// spl_autoload_register(function($class_name){
-//     //echo "class ".$class_name ;
-//     $directorys = array(
-//         $_SERVER['DOCUMENT_ROOT'].'ProgPW/TPSEG/modelo/',
-//         $_SERVER['DOCUMENT_ROOT'].'ProgPW/TPSEG/modelo/conector/',
-//         $_SERVER['DOCUMENT_ROOT'].'ProgPW/TPSEG/control/',
-//       //  $GLOBALS['ROOT'].'util/class/',
-//     );
-//     //print_object($directorys) ;
-//     foreach($directorys as $directory){
-//         if(file_exists($directory.$class_name . '.php')){
-//             // echo "se incluyo".$directory.$class_name . '.php';
-//             require_once($directory.$class_name . '.php');
-//             return;
-//         }
-//     }
-// });

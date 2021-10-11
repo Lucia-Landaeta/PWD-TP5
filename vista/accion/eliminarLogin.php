@@ -2,9 +2,9 @@
 date_default_timezone_set('America/Araguaina');
 include_once("../../configuracion.php");
 $datos = data_submitted();
-if($datos["seg"]=="true"){
+if ($datos["seg"] == "true") {
     include_once("../estructura/headerSeg.php");
-}else{
+} else {
     include_once("../estructura/header.php");
 }
 $abmUs = new AbmUsuario();
@@ -27,7 +27,7 @@ if (isset($datos['idUsuario'])) {
             <div class="card border p-1 rounded shadow p-4">
                 <h4>Borrar sesión</h4>
                 <?php
-                
+
                 if ($objUs != null) {
                     $datos["usDeshabilitado"] = date('Y-m-d H:i:s');
                     $exito = $abmUs->modificacion($datos);
@@ -42,7 +42,12 @@ if (isset($datos['idUsuario'])) {
                     echo "no se pudo realizar el borrado";
                 }
                 ?>
-                <a href="../ejercicios/paginaSegura.php"><button type="button" class="btn btn-outline-primary mt-3">Volver</button></a>
+                <?php
+                if ($datos["seg"] == "true") { ?>
+                    <a href="../ejercicios/paginaSegura.php"><button type="button" class="btn btn-outline-primary mt-3">Volver</button></a>
+                <?php } else { ?>
+                    <a href="../ejercicios/listarUsuarios.php"><button type="button" class="btn btn-outline-primary mt-3">Volver</button></a>
+                <?php } ?>
             </div>
         </div>
     </div>

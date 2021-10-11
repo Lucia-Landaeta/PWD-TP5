@@ -4,12 +4,14 @@ include_once("../../configuracion.php");
 $datos = data_submitted();
 if($datos["seg"]=="true"){
     include_once("../estructura/headerSeg.php");
+    $var="seg";
 }else{
     include_once("../estructura/header.php");
+    $var="noSeg";
 }
-
 $abmUs = new AbmUsuario();
 $objUs = NULL;
+
 // print_r($datos);
 if (isset($datos['idUsuario'])) {
     // echo "Entra isset - idUsuario: ".$datos["idUsuario"];
@@ -48,10 +50,10 @@ if (isset($datos['idUsuario'])) {
                                 </div>
                             </div>
                         </div>
-                        <input id="accion" name="accion" value="editar" type="hidden">
+                        <input id="accion" name="accion" value="<?php echo $var ?>" type="hidden">
                         <div class="row mb-2">
                             <div class="d-grid gap-2 d-md-flex ">
-                                <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                                <button class="btn btn-primary me-md-2" type="submit">Guardar</button>
                             </div>
                         </div>
                     </form>
