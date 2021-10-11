@@ -31,19 +31,19 @@ if (isset($datos['idUsuario'])) {
                 if ($objUs != null) { ?>
                     <form id="actualizarLog" name="actualizarLog" method="POST" action="accionLogin.php" data-toggle="validator" novalidate>
                         <div class="row mb-3">
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>ID</label><br />
                                     <input class="form-control" style="width: 200px" id="idUsuario:" readonly name="idUsuario" type="text" value="<?php echo $objUs->getIdusuario() ?>"><br />
                                 </div>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Nombre</label>
                                     <textarea class="form-control" id="usNombre" name="usNombre" cols="25" rows="1"><?php echo $objUs->getUsNombre() ?></textarea><br />
                                 </div>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Email</label>
                                     <textarea class="form-control" id="usMail" name="usMail" cols="25" rows="1"><?php echo $objUs->getusMail() ?></textarea><br />
