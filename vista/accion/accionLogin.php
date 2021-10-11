@@ -1,22 +1,42 @@
 <?php
 include_once("../../configuracion.php");
-
-$datos = data_submitted();
 include_once("../estructura/header.php");
-$resp = false;
-$abmP = new AbmUsuario();
+$datos = data_submitted();
+$respRol=false;
+$abmUs = new AbmUsuario();
+$abmUR = new AbmUsuarioRol();
+
 if (isset($datos['idUsuario'])) {
-    //  echo"<br>Entro al accion<br>";
-    //  print_r($datos);
-    $objUs = $abmP->buscar("idUsuario=" . $datos["idUsuario"]);
+    $userRol = $abmUR->buscar(["idUsuario" => $datos["idUsuario"]]);
+    $arrRoles = array();
+    $objUs = $abmUs->buscar(["idUsuario" => $datos["idUsuario"]]);
     $datos["usPass"] = $objUs[0]->getUsPass();
     $datos["usDeshabilitado"] = $objUs[0]->getUsDeshabilitado();
-    if ($abmP->modificacion($datos)) {
-        $resp = true;
+    $resp=$abmUs->modificacion($datos);
+    if ($resp|| isset($datos["roles"])) {
+        if (count($userRol) > 0) {
+            foreach ($userRol as $rol) {
+                array_push($arrRoles, $rol->getObjRol()->getIdRol());
+            }
+            foreach ($arrRoles as $idRol) {
+                if (!in_array($idRol, $datos['roles'])) {
+                    $abmUR->baja(['idUsuario' => $datos['idUsuario'], 'idRol' => $idRol]);
+                    $respRol=true;
+                }
+            }
+        }
+        if (isset($datos["roles"])) {
+            foreach ($datos['roles'] as $idRol) {
+                if (!in_array($idRol, $arrRoles)) {
+                    $abmUR->alta(['idUsuario' => $datos['idUsuario'], 'idRol' => $idRol]);
+                    $respRol=true;
+                }
+            }
+        }
     }
-    if ($resp) {
+    if ($resp || $respRol) {
         $mensaje = "La modificación se realizo correctamente.";
-    } else {
+    } else{
         $mensaje = "La modificación no pudo concretarse.";
     }
 }

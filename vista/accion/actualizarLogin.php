@@ -2,22 +2,29 @@
 include_once("../../configuracion.php");
 
 $datos = data_submitted();
-if($datos["seg"]=="true"){
+if ($datos["seg"] == "true") {
     include_once("../estructura/headerSeg.php");
-    $var="seg";
-}else{
+    $var = "seg";
+} else {
     include_once("../estructura/header.php");
-    $var="noSeg";
+    $var = "noSeg";
 }
 $abmUs = new AbmUsuario();
+$abmR = new AbmRol();
+$abmUR = new AbmUsuarioRol();
 $objUs = NULL;
-
-// print_r($datos);
+$arrayRoles=array();
 if (isset($datos['idUsuario'])) {
-    // echo "Entra isset - idUsuario: ".$datos["idUsuario"];
-    $lista = $abmUs->buscar($datos);
-    if (count($lista) > 0) {
-        $objUs = $lista[0];
+    $listaUs = $abmUs->buscar($datos);
+    if (count($listaUs) > 0) {
+        $objUs = $listaUs[0];
+
+        $userRol = $abmUR->buscar(["idUsuario"=>$objUs->getIdUsuario()]);
+        if (count($userRol) > 0) {
+            foreach ($userRol as $obj) {
+                array_push($arrayRoles, $obj->getObjRol()->getIdRol());
+            }
+        }
     }
 }
 ?>
@@ -48,6 +55,27 @@ if (isset($datos['idUsuario'])) {
                                     <label>Email</label>
                                     <textarea class="form-control" id="usMail" name="usMail" cols="25" rows="1"><?php echo $objUs->getusMail() ?></textarea><br />
                                 </div>
+                            </div>
+                            <div class="row pe-2">
+                            <label>Roles del usuario</label>
+                                <?php
+                                $rolesDisp = $abmR->buscar(null);
+                                if (count($rolesDisp) != 0) {
+                                    echo '<div class="col-md-6">
+                                            <div class="form-group">';
+                                    foreach ($rolesDisp as $rol) {
+                                        $checked = "";
+                                        if (in_array($rol->getIdRol(), $arrayRoles)) {
+                                            $checked = "checked";
+                                        }
+                                        echo '<div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="roles" name="roles[]" value="' . $rol->getIdRol() . '" ' . $checked . '> ' . $rol->getDescripcionRol() . '
+                                            </div>';
+                                    }
+                                    echo '</div>
+                                        </div>';
+                                }
+                                ?>
                             </div>
                         </div>
                         <input id="accion" name="accion" value="<?php echo $var ?>" type="hidden">
