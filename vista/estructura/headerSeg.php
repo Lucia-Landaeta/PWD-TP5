@@ -1,10 +1,9 @@
 <?php
 include_once("../../configuracion.php");
 
-$objSess=new Session();
-if(!$objSess->activa())
-{
-    header('location:../ejercicios/login.php');
+$objSess = new Session();
+if (!$objSess->activa()) {
+  header('location:../ejercicios/login.php');
 }
 
 ?>
@@ -27,16 +26,45 @@ if(!$objSess->activa())
       margin: 0;
       padding: 0;
       padding-left: 1rem;
-      padding-right: 1rem;}
-      label{font-weight: bold;}
+      padding-right: 1rem;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
     .sidebar .nav-link {
       font-weight: 500;
-      color: var(--bs-dark);}
+      color: var(--bs-dark);
+    }
+
     .sidebar .nav-link:hover {
-      color: var(--bs-primary);}
+      color: var(--bs-primary);
+    }
+
     small.help-block {
       color: #F44336 !important;
-      font-weight: bold;}
+      font-weight: bold;
+    }
+
+    html {
+      min-height: 100%;
+      position: relative;
+    }
+
+    body {
+      margin: 0;
+      margin-bottom: 40px;
+    }
+
+    footer {
+      background-color: black;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+      color: white;
+    }
   </style>
 </head>
 
@@ -45,19 +73,19 @@ if(!$objSess->activa())
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a  href="../Inicio/index.php" class="nav-link px-2 text-secondary"><b>INICIO</b></a></li>
+          <li><a href="../Inicio/index.php" class="nav-link px-2 text-secondary"><b>INICIO</b></a></li>
         </ul>
 
         <div class="text-end">
           <?php
-          $uss=$objSess->getUsuario();
+          $uss = $objSess->getUsuario();
           $objSess->getRol();
-          $roles=$objSess->getRol();
-          $strRol="";
-          foreach($roles as $rol){
-            $strRol=$strRol.$rol->getDescripcionRol()." - ";
+          $roles = $objSess->getRol();
+          $strRol = "";
+          foreach ($roles as $rol) {
+            $strRol = $strRol . $rol->getDescripcionRol() . " - ";
           }
-          echo '<p align="right"><b>Usuario: </b> ' . $uss->getUsNombre(). ' <b>Rol:</b> ' .$strRol. '</p>';
+          echo '<p align="right"><b>Usuario: </b> ' . $uss->getUsNombre() . ' <b>Rol:</b> ' . $strRol . '</p>';
           ?>
           <a href="../accion/cerrarSesion.php"> <button class="btn btn-dark m-0 p-0">Cerrar Sesión</button> </a>
         </div>
@@ -75,12 +103,12 @@ if(!$objSess->activa())
                 <a class="nav-link" href="#"></a>
               </li>
               <li class="nav-item has-submenu">
-                <a class="nav-link"  href="../Inicio/index.php">Trabajo Práctico 5 </a>
+                <a class="nav-link" href="../Inicio/index.php">Trabajo Práctico 5 </a>
                 <ul>
                   <li><a class="nav-link" href="../ejercicios/listarUsuarios.php">Ejercicio 1</a></li>
                   <li><a class="nav-link" href="../ejercicios/login.php">Ejercicio 2</a></li>
                 </ul>
-              </li>           
+              </li>
             </ul>
           </nav>
         </aside>

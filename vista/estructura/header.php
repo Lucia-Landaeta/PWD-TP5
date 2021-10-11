@@ -18,16 +18,45 @@
       margin: 0;
       padding: 0;
       padding-left: 1rem;
-      padding-right: 1rem;}
+      padding-right: 1rem;
+    }
+
     .sidebar .nav-link {
       font-weight: 500;
-      color: var(--bs-dark);}
-      label{font-weight: bold;}
+      color: var(--bs-dark);
+    }
+
+    label {
+      font-weight: bold;
+    }
+
     .sidebar .nav-link:hover {
-      color: var(--bs-primary);}
+      color: var(--bs-primary);
+    }
+
     small.help-block {
       color: #F44336 !important;
-      font-weight: bold;}
+      font-weight: bold;
+    }
+
+    html {
+      min-height: 100%;
+      position: relative;
+    }
+
+    body {
+      margin: 0;
+      margin-bottom: 40px;
+    }
+
+    footer {
+      background-color: black;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+      color: white;
+    }
   </style>
 </head>
 
@@ -40,7 +69,7 @@
         </ul>
 
         <div class="text-end">
-         <?php echo "Fecha <br>". date('d-m-Y');    ?>
+          <?php echo "Fecha <br>" . date('d-m-Y');    ?>
         </div>
       </div>
     </div>
@@ -56,12 +85,12 @@
                 <a class="nav-link" href="#"></a>
               </li>
               <li class="nav-item has-submenu">
-                <a class="nav-link" href="../Inicio/index.php" >Trabajo Práctico 5 </a>
+                <a class="nav-link" href="../Inicio/index.php">Trabajo Práctico 5 </a>
                 <ul>
                   <li><a class="nav-link" href="../ejercicios/listarUsuarios.php">Ejercicio 1</a></li>
                   <li><a class="nav-link" href="../ejercicios/login.php">Ejercicio 2</a></li>
                 </ul>
-              </li>           
+              </li>
             </ul>
           </nav>
         </aside>
