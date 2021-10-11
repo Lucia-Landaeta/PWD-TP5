@@ -1,16 +1,11 @@
 <?php
 class Session{
 
-    private $objUsuario;
-    private $colRoles;
-
     /**
      * Constructor de la clase que inicia la sesión
      */
     public function __construct(){
         if(session_start()){
-            $this->objRol=null;
-            $this->colRoles=null;
         }
     }
 
@@ -21,7 +16,6 @@ class Session{
         $ini=false;
         $psw=md5($psw);
         if($this->validar($usNombre,$psw)){
-            $_SESSION["idUsuario"]=$this->objUsuario->getIdUsuario();
             $ini=true;
         }   
         return $ini;
@@ -36,8 +30,8 @@ class Session{
         $list=$abmUs->buscar(["usNombre"=>$usNombre,"usPass"=>$psw]);
         if(count($list)>0){
             if($list[0]->getUsDeshabilitado()==NULL || $list[0]->getUsDeshabilitado()=="0000-00-00 00:00:00"){
+                $_SESSION["idUsuario"]=$list[0]->getIdUsuario();
                 $valido=true;
-                $this->setObjUsuario($list[0]);
             }            
         }
         return $valido;
@@ -92,8 +86,6 @@ class Session{
      */
     public function cerrar(){
         $close=false;
-        $this->objRol=null;
-        $this->colRoles=null;
         if(session_destroy()){
             $close=true;
         }

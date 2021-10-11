@@ -36,7 +36,8 @@ if ($objSession->activa()) {
             </div>
         </div>
         <div class="col-sm-4">
-            <p>Un script Vista/login.php que invoque al script accion/verificarLogin.php el cual redirecciona al
+            <p><br>
+                Crear Un script Vista/login.php que invoque al script accion/verificarLogin.php el cual redirecciona al
                 script Vista/paginaSegura.php si los datos ingresados se corresponden con un usuario/pass
                 registrados. Caso contrario se redirecciona nuevamente al script Vista/login.php</p>
         </div>

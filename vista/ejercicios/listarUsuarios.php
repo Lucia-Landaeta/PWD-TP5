@@ -17,7 +17,6 @@ $colUsuarios = $abmUs->buscar(null);
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
                             <th scope="col">Acción</th>
-                            <!-- <th scope="col">Handle</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -42,8 +41,8 @@ $colUsuarios = $abmUs->buscar(null);
             </div>
         </div>
         <div class="col-sm-4">
-            <p>
-                un script Vista/listarUsuario.php que liste los usuario registrados y permita actualizar sus datos o
+            <p> <br>
+                Crear un script Vista/listarUsuario.php que liste los usuario registrados y permita actualizar sus datos o
                 realizar un borrado lógico. Las acciones que se van a poder invocar son:
                 accion/actualizarLogin.php y accion/eliminarLogin.php
 
