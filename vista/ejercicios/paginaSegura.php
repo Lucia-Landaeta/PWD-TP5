@@ -33,10 +33,11 @@ $colUsuarios = $abmUs->buscar(null);
                                     <td><?php echo $us->getUsMail() ?></td>
                                     <td>
                                         <?php
+                                        $edit=false;
                                     foreach($colR as $objR){
-                                        if (($objR->getDescripcionRol() == "Administracion" || $objR->getDescripcionRol() == "Editor") && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
+                                        if (($objR->getDescripcionRol() == "Administracion" || $objR->getDescripcionRol() == "Editor")&& !$edit && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
                                             <a class="btn btn-success" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">editar</a>
-                                        <?php } ?>
+                                        <?php $edit=true;} ?>
                                         <?php if ($objR->getDescripcionRol() == "Administracion" && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
                                             <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">borrar</a>
                                         <?php } ?>
