@@ -28,6 +28,7 @@ if(!$objSess->activa())
       padding: 0;
       padding-left: 1rem;
       padding-right: 1rem;}
+      label{font-weight: bold;}
     .sidebar .nav-link {
       font-weight: 500;
       color: var(--bs-dark);}

@@ -20,12 +20,17 @@ $('#login').bootstrapValidator({
         usPass: {
             validators: {
                 notEmpty: {
-                    message : 'Debe ingresar una psw'
+                    message : 'Debe ingresar una contraseña'
                 },
                 regexp: {
                     regexp: /^([a-z]+[0-9]+)|([0-9]+[a-z]+)/i,
                     message: 'La contraseña debe contener letras y números'
-                }
+                },
+                stringLength: {
+                    min: 4,
+                    max:6,
+                    message: 'La contraseña debe tener entre 4 y 6 digitos'
+                },
             }
         },
         

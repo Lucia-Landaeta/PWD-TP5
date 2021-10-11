@@ -22,6 +22,7 @@
     .sidebar .nav-link {
       font-weight: 500;
       color: var(--bs-dark);}
+      label{font-weight: bold;}
     .sidebar .nav-link:hover {
       color: var(--bs-primary);}
     small.help-block {
