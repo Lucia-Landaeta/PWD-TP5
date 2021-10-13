@@ -74,6 +74,13 @@ $('#actualizarLog').bootstrapValidator({
                 }
             }
         },
+        'roles[]': {
+            validators: {
+                notEmpty: {
+                    message : 'Debe seleccionar al menos un rol'
+                }
+            }
+        }
         
     }
 })

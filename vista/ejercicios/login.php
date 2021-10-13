@@ -6,6 +6,7 @@ if ($objSession->activa()) {
     header('location:paginaSegura.php');
     exit();
 }
+$data = data_submitted();
 ?>
 <div class="container">
     <div class="row">
@@ -26,6 +27,13 @@ if ($objSession->activa()) {
                                 <input id="usPass" class="form-control" type="password" placeholder="Contraseña" name="usPass" >
                             </div>
                         </div>
+                        <?php
+                            if(isset($data['errorcred'])){
+                                echo "<div class='m-2 text-center'>
+                                        <label style='color:red'>Usuario y/o contraseña inválidos.</label>
+                                    </div>";
+                            }
+                        ?>
                         <div class="form-group mb-4">
                             <div class="col-md-12">
                                 <button class="btn btn-success btn-md btn-block w-100" type="submit">Entrar</button>
