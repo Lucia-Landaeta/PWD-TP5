@@ -134,7 +134,6 @@ class Rol
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE rol SET descripcionRol='" . $this->getDescripcionRol() ."' WHERE idRol=" .  $this->getIdRol();
-       echo "<br>CONSULTA ".$sql."<br>";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp =  true;

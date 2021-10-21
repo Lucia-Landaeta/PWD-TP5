@@ -5,8 +5,7 @@ class Session{
      * Constructor de la clase que inicia la sesión
      */
     public function __construct(){
-        if(session_start()){
-        }
+        session_start();
     }
 
     /**
@@ -91,17 +90,4 @@ class Session{
         }
         return $close;
     }
-
-    public function setObjusuario($uss){
-        $this->objUsuario=$uss;
-    }
-
-    public function setColRoles($roles){
-        $this->colRoles=$roles;
-    }
-
-        //  public function recuperarSession(){
-    //     $this->setObjUsuario($this->getUsuario());
-    //     $this->setColRoles($this->getRol());
-    //  }
 }

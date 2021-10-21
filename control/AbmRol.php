@@ -46,9 +46,7 @@ class AbmRol
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            echo"<br>Campos clave seteados";
             $objRol = $this->cargarObjeto($param);
-            echo"<br> objeto cargado";
             if ($objRol != null and $objRol->modificar()) {
                 $resp = true;
             }
