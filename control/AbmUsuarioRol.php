@@ -7,7 +7,7 @@ class AbmUsuarioRol{
     {
         $resp = false;
         $DB = new DB();
-        $objUR = $DB::for_table('usuariorol')->create();
+        $objUR = $DB::factory('UsuarioRol')->create();
         $objUR->set($param);
         if ($objUR->save()) {
             $resp = true;
@@ -18,7 +18,7 @@ class AbmUsuarioRol{
     public function bajaRoles($param){
         $resp = false;
         $DB = new DB();
-        $arrObjUR = $DB::for_table('usuariorol')->where('idRol', $param['idRol'])->find_result_set();
+        $arrObjUR = $DB::factory('UsuarioRol')->where('idRol', $param['idRol'])->find_result_set();
         if($arrObjUR){
             $arrObjUR->delete_many();
             $resp = true;
@@ -29,7 +29,7 @@ class AbmUsuarioRol{
     public function bajaUsuarios($param){
         $resp = false;
         $DB = new DB();
-        $arrObjUR = $DB::for_table('usuariorol')->where('idUsuario', $param['idUsuario'])->find_result_set();
+        $arrObjUR = $DB::factory('UsuarioRol')->where('idUsuario', $param['idUsuario'])->find_result_set();
         if($arrObjUR){
             $arrObjUR->delete_many();
             $resp = true;
@@ -40,7 +40,7 @@ class AbmUsuarioRol{
     public function bajaUR($param){
         $resp = false;
         $DB = new DB();
-        $arrObjUR = $DB::for_table('usuariorol')->where($param)->find_one();
+        $arrObjUR = $DB::factory('UsuarioRol')->where($param)->find_one();
         if($arrObjUR->delete()){
             $resp = true;
         }
@@ -57,9 +57,9 @@ class AbmUsuarioRol{
         $result = array();
         $DB = new DB();
         if(!$param){
-            $objPersona = $DB::for_table('usuariorol')->find_result_set();
+            $objPersona = $DB::factory('UsuarioRol')->find_result_set();
         }else{
-            $objPersona = $DB::for_table('usuariorol')->where($param)->find_result_set();
+            $objPersona = $DB::factory('UsuarioRol')->where($param)->find_result_set();
         }
         foreach($objPersona as $obj){
             array_push($result, $obj->as_array());

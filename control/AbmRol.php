@@ -9,7 +9,7 @@ class AbmRol
         $param["idRol"]=null;
         $param["usDeshabilitado"]=null;
         $DB = new DB();
-        $objRol = $DB::for_table('Rol')->create();
+        $objRol = $DB::factory('Rol')->create();
         $objRol->set($param);
         if ($objRol->save()) {
             $resp = true;
@@ -27,7 +27,7 @@ class AbmRol
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $DB = new DB();
-            $objRol = $DB::for_table('Rol')->find_one($param['idRol']);
+            $objRol = $DB::factory('Rol')->find_one($param['idRol']);
             $abmUR = new AbmUsuarioRol();
             if($abmUR->bajaRoles($param)){
                 if($objRol->delete()){
@@ -47,7 +47,7 @@ class AbmRol
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $DB = new DB();
-            $objRol = $DB::for_table('Rol')->find_one($param['idRol']);
+            $objRol = $DB::factory('Rol')->find_one($param['idRol']);
             $objRol->set($param);
             if($objRol->save()){
                 $resp = true;
@@ -65,9 +65,9 @@ class AbmRol
         $result = array();
         $DB = new DB();
         if(!$param){
-            $objRol = $DB::for_table('Rol')->find_result_set();
+            $objRol = $DB::factory('Rol')->find_result_set();
         }else{
-            $objRol = $DB::for_table('Rol')->where($param)->find_result_set();
+            $objRol = $DB::factory('Rol')->where($param)->find_result_set();
         }
         foreach($objRol as $obj){
             array_push($result, $obj->as_array());
