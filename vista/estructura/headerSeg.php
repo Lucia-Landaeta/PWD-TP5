@@ -83,9 +83,9 @@ if (!$objSess->activa()) {
           $roles = $objSess->getRol();
           $strRol = "";
           foreach ($roles as $rol) {
-            $strRol = $strRol . $rol->getDescripcionRol() . " - ";
+            $strRol = $strRol . $rol['descripcionRol'] . " - ";
           }
-          echo '<p align="right"><b>Usuario: </b> ' . $uss->getUsNombre() . ' <b>Rol:</b> ' . $strRol . '</p>';
+          echo '<p align="right"><b>Usuario: </b> ' . $uss['usNombre'] . ' <b>Rol:</b> ' . $strRol . '</p>';
           ?>
           <a href="../accion/cerrarSesion.php"> <button class="btn btn-dark m-0 p-0">Cerrar Sesión</button> </a>
         </div>

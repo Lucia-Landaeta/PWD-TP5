@@ -4,12 +4,14 @@ class AbmRol
     /**
      * @param array $param
      */
-    public function alta($param)
-    {
+    public function alta($param){
         $resp = false;
         $param["idRol"]=null;
-        $objRol = $this->cargarObjeto($param);
-        if ($objRol != null and $objRol->insertar()) {
+        $param["usDeshabilitado"]=null;
+        $DB = new DB();
+        $objRol = $DB::for_table('Rol')->create();
+        $objRol->set($param);
+        if ($objRol->save()) {
             $resp = true;
         }
         return $resp;
@@ -24,14 +26,13 @@ class AbmRol
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $objRol = $this->cargarObjetoConClave($param);
-            $abmUR=new AbmUsuarioRol();
-            $arrR=$abmUR->buscar(["idRol"=>$param['idRol']]);
-            foreach($arrR as $ur){
-                $abmUR->baja(["idUsuario"=>$ur->getObjUsuario()->getIdUsuario(),"idRol"=>$ur->getObjRol()->getIdRol()]);
-            }
-            if ($objRol!=null and $objRol->eliminar()){
-                $resp = true;
+            $DB = new DB();
+            $objRol = $DB::for_table('Rol')->find_one($param['idRol']);
+            $abmUR = new AbmUsuarioRol();
+            if($abmUR->bajaRoles($param)){
+                if($objRol->delete()){
+                    $resp = true;
+                }
             }
         }
         return $resp;
@@ -42,12 +43,13 @@ class AbmRol
      * @param array $param
      * @return boolean
      */
-    public function modificacion($param)
-    {
+    public function modificacion($param){
         $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $objRol = $this->cargarObjeto($param);
-            if ($objRol != null and $objRol->modificar()) {
+        if ($this->seteadosCamposClaves($param)){
+            $DB = new DB();
+            $objRol = $DB::for_table('Rol')->find_one($param['idRol']);
+            $objRol->set($param);
+            if($objRol->save()){
                 $resp = true;
             }
         }
@@ -59,62 +61,21 @@ class AbmRol
      * @param array $param
      * @return boolean
      */
-    public function buscar($param)
-    {
-        $where = " true ";
-        if ($param <> NULL) {
-            if (isset($param['idRol']))
-                $where .= " and idRol ='" . $param['idRol'] . "'";
-            if (isset($param['descripcionRol']))
-                $where .= " and descripcionRol ='" . $param['descripcionRol'] . "'";
+    public function buscar($param){
+        $result = array();
+        $DB = new DB();
+        if(!$param){
+            $objRol = $DB::for_table('Rol')->find_result_set();
+        }else{
+            $objRol = $DB::for_table('Rol')->where($param)->find_result_set();
         }
-        //echo "WHERE : " . $where;
-        $arreglo = Rol::listar($where);
-        return $arreglo;
+        foreach($objRol as $obj){
+            array_push($result, $obj->as_array());
+        }
+        return $result;
     }
 
-    /**
-     * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
-     * @param array $param
-     * @return object
-     */
-    public function cargarObjeto($param)
-    {
-        $obj = null;
-        if (array_key_exists('idRol', $param) && array_key_exists('descripcionRol', $param) ) {
-                $obj = new Rol();
-                $obj->setear(["idRol" =>$param["idRol"], "descripcionRol" => $param["descripcionRol"]]);
-        }
-        return $obj;
-    }
-
-    /**
-     * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
-     * @param array $param
-     * @return object
-     */
-    private function cargarObjetoConClave($param)
-    {
-        $obj = null;
-        if (isset($param['idRol'])) {
-            $obj = new Rol();
-            $obj->setear(["idRol" => $param["idRol"], "descripcionRol" => null]);
-        }
-        return $obj;
-    }
-
-
-    /**
-     * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
-     * @param array $param
-     * @return boolean
-     */
-
-    private function seteadosCamposClaves($param)
-    {
-        $resp = false;
-        if (isset($param['idRol']))
-            $resp = true;
-        return $resp;
+    private function seteadosCamposClaves($param){
+        return isset($param['idRol']);
     }
 }

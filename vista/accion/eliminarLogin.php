@@ -11,12 +11,12 @@ $abmUs = new AbmUsuario();
 $objUs = NULL;
 //  print_r($datos);
 if (isset($datos['idUsuario'])) {
-    $lista = $abmUs->buscar($datos);
-    if (count($lista) > 0) {
+    $lista = $abmUs->buscar(['idUsuario' => $datos['idUsuario']]);
+    if ($lista) {
         $objUs = $lista[0];
-        $datos["usNombre"] = $objUs->getUsNombre();
+        /*$datos["usNombre"] = $objUs->getUsNombre();
         $datos["usPass"] = $objUs->getUsPass();
-        $datos["usMail"] = $objUs->getUsMail();
+        $datos["usMail"] = $objUs->getUsMail();*/
     }
 }
 ?>
@@ -29,8 +29,8 @@ if (isset($datos['idUsuario'])) {
                 <?php
 
                 if ($objUs != null) {
-                    $datos["usDeshabilitado"] = date('Y-m-d H:i:s');
-                    $exito = $abmUs->modificacion($datos);
+                    $objUs["usDeshabilitado"] = date('Y-m-d H:i:s');
+                    $exito = $abmUs->modificacion($objUs);
                 } else {
                     echo "La persona ingresada no se encontro";
                 ?>

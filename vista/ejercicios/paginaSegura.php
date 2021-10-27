@@ -5,7 +5,7 @@ include_once("../estructura/headerSeg.php");
 $colR = $objSess->getRol();
 
 $abmUs = new AbmUsuario();
-$colUsuarios = $abmUs->buscar(null);
+$colUsuarios = $abmUs->buscar(array());
 ?>
 
 <div class="container">
@@ -25,24 +25,24 @@ $colUsuarios = $abmUs->buscar(null);
                     <tbody>
                         <?php if (count($colUsuarios) > 0) {
                             foreach ($colUsuarios as $us) {
-                                // if ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00") {
+                                // if ($us['usDeshabilitado'] == NUll || $us['usDeshabilitado'] == "0000-00-00 00:00:00") {
                         ?>
                                 <tr>
-                                    <td><?php echo $us->getIdUsuario() ?></td>
-                                    <td><?php echo $us->getUsNombre() ?></td>
-                                    <td><?php echo $us->getUsMail() ?></td>
+                                    <td><?php echo $us['idUsuario'] ?></td>
+                                    <td><?php echo $us['usNombre'] ?></td>
+                                    <td><?php echo $us['usMail'] ?></td>
                                     <td>
                                         <?php
                                         $edit=false;
                                     foreach($colR as $objR){
-                                        if (($objR->getDescripcionRol() == "Administracion" || $objR->getDescripcionRol() == "Editor")&& !$edit && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
-                                            <a class="btn btn-success" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">editar</a>
+                                        if (($objR['descripcionRol'] == "Administracion" || $objR['descripcionRol'] == "Editor")&& !$edit && ($us['usDeshabilitado'] == NUll || $us['usDeshabilitado'] == "0000-00-00 00:00:00")) { ?>
+                                            <a class="btn btn-success" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us['idUsuario'] ?>&seg=true">editar</a>
                                         <?php $edit=true;} ?>
-                                        <?php if ($objR->getDescripcionRol() == "Administracion" && ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
-                                            <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">borrar</a>
+                                        <?php if ($objR['descripcionRol'] == "Administracion" && ($us['usDeshabilitado'] == NUll || $us['usDeshabilitado'] == "0000-00-00 00:00:00")) { ?>
+                                            <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us['idUsuario'] ?>&seg=true">borrar</a>
                                         <?php } ?>
-                                        <?php if ($objR->getDescripcionRol() == "Administracion" && !($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00")) { ?>
-                                            <a class="btn btn-info" href="../accion/habilitarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=true">habilitar</a>
+                                        <?php if ($objR['descripcionRol'] == "Administracion" && !($us['usDeshabilitado'] == NUll || $us['usDeshabilitado'] == "0000-00-00 00:00:00")) { ?>
+                                            <a class="btn btn-info" href="../accion/habilitarLogin.php?idUsuario=<?php echo $us['idUsuario'] ?>&seg=true">habilitar</a>
                                         <?php }
                                         }
                                         ?>

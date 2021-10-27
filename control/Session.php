@@ -26,10 +26,10 @@ class Session{
     public function validar($usNombre,$psw){
         $valido=false;
         $abmUs=new AbmUsuario();
-        $list=$abmUs->buscar(["usNombre"=>$usNombre,"usPass"=>$psw]);
-        if(count($list)>0){
-            if($list[0]->getUsDeshabilitado()==NULL || $list[0]->getUsDeshabilitado()=="0000-00-00 00:00:00"){
-                $_SESSION["idUsuario"]=$list[0]->getIdUsuario();
+        $list = $abmUs->buscar(["usNombre" => $usNombre, "usPass" => $psw]);
+        if($list){
+            if($list[0]['usDeshabilitado']==NULL || $list[0]['usDeshabilitado']=="0000-00-00 00:00:00"){
+                $_SESSION["idUsuario"]=$list[0]['idUsuario'];
                 $valido=true;
             }            
         }
@@ -54,8 +54,8 @@ class Session{
         $usuario=null;
         $abmUs=new AbmUsuario();
         $list=$abmUs->buscar(["idUsuario"=>$_SESSION["idUsuario"]]); 
-        if(count($list)>0){
-            $usuario=$list[0];
+        if($list){
+            $usuario = $list[0];
         }
         return $usuario;
     }
@@ -68,12 +68,11 @@ class Session{
         $abmUR=new AbmUsuarioRol();
         $abmR=new AbmRol();
         $uss=$this->getUsuario();
-        // print_r($uss);
-        $list=$abmUR->buscar(["idUsuario"=>$uss->getIdUsuario()]);
-        if(count($list)>0){
+        $list = $abmUR->buscar(["idUsuario"=>$uss['idUsuario']]);
+        if($list){
             foreach($list as $UR){
-                $objRol=$abmR->buscar(["idRol"=>$UR->getObjRol()->getIdRol()]);
-                array_push($roles,$objRol[0]);
+                $objRol = $abmR->buscar(["idRol"=>$UR['idRol']]);
+                array_push($roles, $objRol[0]);
             }
         }
         return $roles;

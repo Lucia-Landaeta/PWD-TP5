@@ -3,7 +3,7 @@ include_once("../../configuracion.php");
 include_once("../estructura/header.php");
 
 $abmUs = new AbmUsuario();
-$colUsuarios = $abmUs->buscar(null);
+$colUsuarios = $abmUs->buscar(array());
 ?>
 <div class="container">
     <div class="row">
@@ -22,14 +22,14 @@ $colUsuarios = $abmUs->buscar(null);
                     <tbody>
                         <?php if (count($colUsuarios) > 0) {
                             foreach ($colUsuarios as $us) {
-                                if ($us->getUsDeshabilitado() == NUll || $us->getUsDeshabilitado() == "0000-00-00 00:00:00") {
+                                if ($us['usDeshabilitado'] == NUll || $us['usDeshabilitado'] == "0000-00-00 00:00:00") {
                         ?>
                                     <tr>
-                                        <td><?php echo $us->getIdUsuario() ?></td>
-                                        <td><?php echo $us->getUsNombre() ?></td>
-                                        <td><?php echo $us->getUsMail() ?></td>
-                                        <td><a class="btn btn-primary" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=false">editar</a>
-                                            <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us->getIdUsuario() ?>&seg=false">borrar</a>
+                                        <td><?php echo $us['idUsuario'] ?></td>
+                                        <td><?php echo $us['usNombre'] ?></td>
+                                        <td><?php echo $us['usMail'] ?></td>
+                                        <td><a class="btn btn-primary" href="../accion/actualizarLogin.php?idUsuario=<?php echo $us['idUsuario'] ?>&seg=false">editar</a>
+                                            <a class="btn btn-warning" href="../accion/eliminarLogin.php?idUsuario=<?php echo $us['idUsuario'] ?>&seg=false">borrar</a>
                                         </td>
                                     </tr>
 
