@@ -1,6 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT']."/PWD-TP5/utiles/idiorm.php";
-
 class DB extends ORM{
     public function __construct(){
         ORM::configure(array(
