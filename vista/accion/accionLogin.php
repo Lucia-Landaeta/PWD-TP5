@@ -3,8 +3,10 @@ include_once("../../configuracion.php");
 include_once("../estructura/header.php");
 $datos = data_submitted();
 $seg = false;
-if($datos["accion"] == "seg"){
-    $seg = true;
+if(isset($datos["accion"])){
+    if($datos["accion"] == "seg"){
+        $seg = true;
+    }
     unset($datos["accion"]);
 }
 $respRol=false;
