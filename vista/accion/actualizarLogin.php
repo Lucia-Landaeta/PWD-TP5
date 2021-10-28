@@ -2,12 +2,15 @@
 include_once("../../configuracion.php");
 
 $datos = data_submitted();
-if ($datos["seg"] == "true") {
-    include_once("../estructura/headerSeg.php");
-    $var = "seg";
-} else {
-    include_once("../estructura/header.php");
-    $var = "noSeg";
+if(isset($datos['seg'])){
+    if ($datos["seg"] == "true") {
+        include_once("../estructura/headerSeg.php");
+        $var = "seg";
+    } else {
+        include_once("../estructura/header.php");
+        $var = "noSeg";
+    }
+    unset($datos['seg']);
 }
 unset($datos['seg']);
 $abmUs = new AbmUsuario();
