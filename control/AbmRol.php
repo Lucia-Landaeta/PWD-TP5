@@ -8,8 +8,8 @@ class AbmRol
         $resp = false;
         $param["idRol"]=null;
         $param["usDeshabilitado"]=null;
-        $DB = new DB();
-        $objRol = $DB::factory('Rol')->create();
+        $modOrm = new ModOrm();
+        $objRol = $modOrm::factory('Rol')->create();
         $objRol->set($param);
         if ($objRol->save()) {
             $resp = true;
@@ -26,8 +26,8 @@ class AbmRol
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $DB = new DB();
-            $objRol = $DB::factory('Rol')->find_one($param['idRol']);
+            $modOrm = new ModOrm();
+            $objRol = $modOrm::factory('Rol')->find_one($param['idRol']);
             $abmUR = new AbmUsuarioRol();
             if($abmUR->bajaRoles($param)){
                 if($objRol->delete()){
@@ -46,8 +46,8 @@ class AbmRol
     public function modificacion($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $DB = new DB();
-            $objRol = $DB::factory('Rol')->find_one($param['idRol']);
+            $modOrm = new ModOrm();
+            $objRol = $modOrm::factory('Rol')->find_one($param['idRol']);
             $objRol->set($param);
             if($objRol->save()){
                 $resp = true;
@@ -63,11 +63,11 @@ class AbmRol
      */
     public function buscar($param){
         $result = array();
-        $DB = new DB();
+        $modOrm = new ModOrm();
         if(!$param){
-            $objRol = $DB::factory('Rol')->find_result_set();
+            $objRol = $modOrm::factory('Rol')->find_result_set();
         }else{
-            $objRol = $DB::factory('Rol')->where($param)->find_result_set();
+            $objRol = $modOrm::factory('Rol')->where($param)->find_result_set();
         }
         foreach($objRol as $obj){
             array_push($result, $obj->as_array());

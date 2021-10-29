@@ -6,8 +6,8 @@ class AbmUsuarioRol{
     public function alta($param)
     {
         $resp = false;
-        $DB = new DB();
-        $objUR = $DB::factory('UsuarioRol')->create();
+        $modOrm = new ModOrm();
+        $objUR = $modOrm::factory('UsuarioRol')->create();
         $objUR->set($param);
         if ($objUR->save()) {
             $resp = true;
@@ -17,8 +17,8 @@ class AbmUsuarioRol{
 
     public function bajaRoles($param){
         $resp = false;
-        $DB = new DB();
-        $arrObjUR = $DB::factory('UsuarioRol')->where('idRol', $param['idRol'])->find_result_set();
+        $modOrm = new ModOrm();
+        $arrObjUR = $modOrm::factory('UsuarioRol')->where('idRol', $param['idRol'])->find_result_set();
         if($arrObjUR){
             $arrObjUR->delete_many();
             $resp = true;
@@ -28,8 +28,8 @@ class AbmUsuarioRol{
 
     public function bajaUsuarios($param){
         $resp = false;
-        $DB = new DB();
-        $arrObjUR = $DB::factory('UsuarioRol')->where('idUsuario', $param['idUsuario'])->find_result_set();
+        $modOrm = new ModOrm();
+        $arrObjUR = $modOrm::factory('UsuarioRol')->where('idUsuario', $param['idUsuario'])->find_result_set();
         if($arrObjUR){
             $arrObjUR->delete_many();
             $resp = true;
@@ -39,8 +39,8 @@ class AbmUsuarioRol{
 
     public function bajaUR($param){
         $resp = false;
-        $DB = new DB();
-        $arrObjUR = $DB::factory('UsuarioRol')->where($param)->find_one();
+        $modOrm = new ModOrm();
+        $arrObjUR = $modOrm::factory('UsuarioRol')->where($param)->find_one();
         if($arrObjUR->delete()){
             $resp = true;
         }
@@ -55,11 +55,11 @@ class AbmUsuarioRol{
      */
     public function buscar($param){
         $result = array();
-        $DB = new DB();
+        $modOrm = new ModOrm();
         if(!$param){
-            $objPersona = $DB::factory('UsuarioRol')->find_result_set();
+            $objPersona = $modOrm::factory('UsuarioRol')->find_result_set();
         }else{
-            $objPersona = $DB::factory('UsuarioRol')->where($param)->find_result_set();
+            $objPersona = $modOrm::factory('UsuarioRol')->where($param)->find_result_set();
         }
         foreach($objPersona as $obj){
             array_push($result, $obj->as_array());
