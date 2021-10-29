@@ -8,8 +8,8 @@ class AbmUsuario
         $resp = false;
         $param["idUsuario"]=null;
         $param["usDeshabilitado"]=null;
-        $DB = new DB();
-        $objUsuario = $DB::for_table('usuario')->create();
+        $modOrm = new ModOrm();
+        $objUsuario = $modOrm::for_table('usuario')->create();
         $objUsuario->set($param);
         if ($objUsuario->save()) {
             $resp = true;
@@ -26,8 +26,8 @@ class AbmUsuario
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $DB = new DB();
-            $objUsuario = $DB::for_table('usuario')->find_one($param['idUsuario']);
+            $modOrm = new ModOrm();
+            $objUsuario = $modOrm::for_table('usuario')->find_one($param['idUsuario']);
             $abmUR = new AbmUsuarioRol();
             if($abmUR->bajaUsuarios($param)){
                 if($objUsuario->delete()){
@@ -46,8 +46,8 @@ class AbmUsuario
     public function modificacion($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $DB = new DB();
-            $objUsuario = $DB::for_table('usuario')->find_one($param['idUsuario']);
+            $modOrm = new ModOrm();
+            $objUsuario = $modOrm::for_table('usuario')->find_one($param['idUsuario']);
             $objUsuario->set($param);
             if($objUsuario->save()){
                 $resp = true;
@@ -63,11 +63,11 @@ class AbmUsuario
      */
     public function buscar($param){
         $result = array();
-        $DB = new DB();
+        $modOrm = new ModOrm();
         if(!$param){
-            $objUsuario = $DB::for_table('usuario')->find_result_set();
+            $objUsuario = $modOrm::for_table('usuario')->find_result_set();
         }else{
-            $objUsuario = $DB::for_table('usuario')->where($param)->find_result_set();
+            $objUsuario = $modOrm::for_table('usuario')->where($param)->find_result_set();
         }
         foreach($objUsuario as $obj){
             array_push($result, $obj->as_array());
